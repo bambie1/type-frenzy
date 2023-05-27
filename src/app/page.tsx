@@ -4,7 +4,7 @@ import LeaderboardPreview from "./leaderboard-preview";
 
 export default function Home() {
   return (
-    <div className="mx-auto flex flex-col items-center justify-between text-center lg:max-w-2xl">
+    <div className="mx-auto flex flex-col items-center justify-between text-center lg:max-w-3xl">
       <h1 className="mb-4 text-3xl font-bold lg:text-5xl">
         Test your typing skills and climb the leaderboard!
       </h1>
