@@ -18,13 +18,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${outfit.className} max-w-5xl min-h-screen flex flex-col px-4 w-full lg:px-6 mx-auto`}
+        className={`${outfit.className} mx-auto flex min-h-screen w-full max-w-5xl flex-col px-4 lg:px-6`}
       >
         <header className="py-4">
-          <nav className="flex justify-between items-center">
+          <nav className="flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2">
               <Image src="/keycap.svg" alt="" width={40} height={40} />
-              <span className="font-bold text-lg lg:text-2xl">type-frenzy</span>
+              <span className="text-lg font-bold lg:text-2xl">type-frenzy</span>
             </Link>
 
             <div className="flex gap-4">
@@ -37,8 +37,8 @@ export default function RootLayout({
             </div>
           </nav>
         </header>
-        <main className="flex-1 my-20">{children}</main>
-        <footer className="py-4 flex items-center justify-between gap-2">
+        <main className="my-20 flex-1">{children}</main>
+        <footer className="flex items-center justify-between gap-2 py-4">
           <p>
             By{" "}
             <Link

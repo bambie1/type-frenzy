@@ -9,11 +9,11 @@ export default function DailyChallenge() {
   const [userInput, setUserInput] = useState("");
 
   return (
-    <main className="flex flex-col gap-10 p-24">
+    <div className="flex flex-col gap-10">
       <h1>Daily challenge</h1>
 
       <p>{SENTENCE_CHALLENGE}</p>
       <textarea name="userInput" id="" cols={30} rows={10}></textarea>
-    </main>
+    </div>
   );
 }

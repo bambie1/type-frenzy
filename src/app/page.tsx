@@ -4,19 +4,19 @@ import LeaderboardPreview from "./leaderboard-preview";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center text-center justify-between lg:max-w-3xl mx-auto">
-      <h1 className="font-bold mb-4 text-3xl lg:text-5xl">
+    <div className="mx-auto flex flex-col items-center justify-between text-center lg:max-w-2xl">
+      <h1 className="mb-4 text-3xl font-bold lg:text-5xl">
         Test your typing skills and climb the leaderboard!
       </h1>
-      <p className="text-lg lg:text-xl w-[80%] mx-auto text-gray-600">
+      <p className="mx-auto w-[80%] text-lg text-gray-600 lg:text-xl">
         Challenge your typing speed and accuracy every day with our addictive
         daily typing tests.
       </p>
 
-      <div className="mt-6 lg:mt-14 flex flex-col items-center gap-4">
+      <div className="mt-6 flex flex-col items-center gap-4 lg:mt-14">
         <Link
           href="/daily-challenge"
-          className="py-4 px-6 group flex items-center gap-2 font-semibold rounded-md bg-primary shadow-keycap hover:shadow-keycap-hover transition duration-200"
+          className="group flex items-center gap-2 rounded-md bg-primary px-6 py-4 font-semibold shadow-keycap transition duration-200 hover:shadow-keycap-hover"
         >
           Start daily challenge{" "}
           <svg
@@ -25,7 +25,7 @@ export default function Home() {
             viewBox="0 0 24 24"
             strokeWidth={1}
             stroke="currentColor"
-            className="w-6 h-6 group-hover:translate-x-1 transitionte duration-200"
+            className="transitionte h-6 w-6 duration-200 group-hover:translate-x-1"
           >
             <path
               strokeLinecap="round"
@@ -40,7 +40,7 @@ export default function Home() {
       </div>
 
       <div className="mt-20">
-        <p className="font-medium text-lg">LEADERBOARD</p>
+        <p className="text-lg font-medium">LEADERBOARD</p>
         <LeaderboardPreview />
       </div>
     </div>
