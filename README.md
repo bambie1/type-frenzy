@@ -10,8 +10,8 @@ Check it out at [typefrenzy.vercel.app](https://typefrenzy.vercel.app)
 Clone the project
 
 ```bash
-  git clone https://github.com/bambie1/next-13-gitlab-dashboard.git
-  cd next-13-gitlab-dashboard
+  git clone https://github.com/bambie1/type-frenzy.git
+  cd type-frenzy
 ```
 
 Copy the contents of `.env.example` into a `.env.local` file and update with your Gitlab API credentials
