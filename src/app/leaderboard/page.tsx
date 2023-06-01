@@ -21,7 +21,7 @@ const people = [
 export default function Leaderboard() {
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-10">
-      <h1 className="mb-2 text-center text-xl font-bold lg:text-4xl">
+      <h1 className="mb-2 text-center text-xl font-semibold lg:text-4xl">
         Leaderboard
       </h1>
 

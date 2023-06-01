@@ -1,11 +1,25 @@
 import Link from "next/link";
 
 import LeaderboardPreview from "./leaderboard-preview";
+import { databases } from "@/utils/appwrite";
+import { Query } from "appwrite";
 
-export default function Home() {
+async function getData() {
+  const { documents } = await databases.listDocuments(
+    process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || "",
+    process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
+    [Query.equal("DateKey", new Date().toLocaleDateString())]
+  );
+
+  return documents;
+}
+
+export default async function Home() {
+  const data = await getData();
+
   return (
     <div className="mx-auto flex flex-col items-center justify-between text-center lg:max-w-3xl">
-      <h1 className="mb-4 text-3xl font-bold lg:text-5xl">
+      <h1 className="mb-4 text-3xl font-semibold lg:text-5xl">
         Test your typing skills and climb the leaderboard!
       </h1>
       <p className="mx-auto w-[80%] text-lg text-gray-600 lg:text-xl">
