@@ -1,21 +1,9 @@
 import Link from "next/link";
 
 import LeaderboardPreview from "./leaderboard-preview";
-import { databases } from "@/utils/appwrite";
-import { Query } from "appwrite";
-
-async function getData() {
-  const { documents } = await databases.listDocuments(
-    process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID || "",
-    process.env.NEXT_PUBLIC_APPWRITE_COLLECTION_ID || "",
-    [Query.equal("DateKey", new Date().toLocaleDateString())]
-  );
-
-  return documents;
-}
 
 export default async function Home() {
-  const data = await getData();
+  // const data = await getData();
 
   return (
     <div className="mx-auto flex flex-col items-center justify-between text-center lg:max-w-3xl">

@@ -34,13 +34,19 @@ export default async function RootLayout({
                 </Link>
 
                 <div className="flex items-center gap-4">
+                  <Link href="/daily-challenge" className="">
+                    Daily challenge
+                  </Link>
                   <Link href="/leaderboard" className="">
                     Leaderboard
                   </Link>
                   {user ? (
                     <UserButton />
                   ) : (
-                    <Link href="/sign-in" className="">
+                    <Link
+                      href="/sign-in"
+                      className="underline transition duration-150 hover:text-gray-600 hover:no-underline"
+                    >
                       Sign In
                     </Link>
                   )}

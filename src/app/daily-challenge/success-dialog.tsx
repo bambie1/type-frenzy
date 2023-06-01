@@ -1,3 +1,4 @@
+import { useUser } from "@clerk/nextjs";
 import * as Dialog from "@radix-ui/react-dialog";
 import Link from "next/link";
 
@@ -5,9 +6,12 @@ interface Props {
   isOpen?: boolean;
   handleClose: () => void;
   timer: number;
+  typingSpeed: number;
 }
 
-const SuccessDialog = ({ isOpen, handleClose, timer }: Props) => {
+const SuccessDialog = ({ isOpen, timer, typingSpeed }: Props) => {
+  const { user } = useUser();
+
   return (
     <Dialog.Root open={isOpen}>
       <Dialog.Portal>
@@ -16,17 +20,33 @@ const SuccessDialog = ({ isOpen, handleClose, timer }: Props) => {
           <Dialog.Title className="m-0 text-2xl font-medium">
             Daily challenge complete!
           </Dialog.Title>
-          <Dialog.Description className="mb-5 mt-[10px] leading-normal">
-            Completed in {timer} seconds
-          </Dialog.Description>
+          {!!timer && (
+            <Dialog.Description className="mb-5 mt-[10px] leading-normal">
+              Completed in {timer} seconds
+            </Dialog.Description>
+          )}
 
-          <p className="mt-auto">
-            <Link href="/sign-in" className="underline">
-              Sign in
-            </Link>{" "}
-            to get ranked on the leaderboard!
-          </p>
+          {!!typingSpeed && (
+            <Dialog.Description className="mb-5 mt-[10px] leading-normal">
+              Typing speed: {typingSpeed} WPM
+            </Dialog.Description>
+          )}
+
+          {!!user ? (
+            <Link href="/leaderboard" className="mt-auto underline">
+              View the leaderboard
+            </Link>
+          ) : (
+            <p className="mt-auto">
+              <Link href="/sign-in" className="underline">
+                Sign in
+              </Link>{" "}
+              to get ranked on the leaderboard!
+            </p>
+          )}
         </Dialog.Content>
+
+        <Dialog.Close>Close</Dialog.Close>
       </Dialog.Portal>
     </Dialog.Root>
   );

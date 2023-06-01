@@ -1,18 +1,33 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useUser } from "@clerk/nextjs";
+import { ID } from "appwrite";
+
 import SuccessDialog from "./success-dialog";
+import { databases } from "@/utils/appwrite";
+import { today } from "@/utils/dateHelper";
 
 export default function Display({
   sentenceChallenge,
+  userInfo,
 }: {
   sentenceChallenge: string;
+  userInfo: any;
 }) {
+  const authUserHasCompletedChallenge = userInfo?.last_challenge_day === today;
+
+  const { user } = useUser();
   const [userInput, setUserInput] = useState("");
   const [timer, setTimer] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [isComplete, setIsComplete] = useState(false);
   const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+
+  useEffect(() => {
+    if (authUserHasCompletedChallenge) setShowSuccessDialog(true);
+  }, [authUserHasCompletedChallenge]);
 
   const intervalRef = useRef<any>();
 
@@ -37,8 +52,56 @@ export default function Display({
     }
   };
 
-  const completeChallenge = () => {
-    setShowSuccessDialog(true);
+  const completeChallenge = async () => {
+    const newTypingSpeed = parseFloat(
+      (sentenceChallenge.length / 5 / (timer / 60)).toFixed(2)
+    );
+
+    if (!user) {
+      setTypingSpeed(newTypingSpeed);
+      setShowSuccessDialog(true);
+      return;
+    }
+
+    try {
+      if (!userInfo) {
+        await databases.createDocument(
+          process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+          process.env.NEXT_PUBLIC_APPWRITE_SCORES_COLLECTION_ID!,
+          ID.unique(),
+          {
+            user_email: user.emailAddresses[0].emailAddress,
+            user_name: user.firstName,
+            average_score: newTypingSpeed,
+            last_challenge_day: today,
+            number_of_challenges: 1,
+            last_challenge_time: timer,
+          }
+        );
+      } else {
+        const averageScore =
+          (userInfo.average_score * userInfo.number_of_challenges +
+            newTypingSpeed) /
+          (userInfo.number_of_challenges + 1);
+
+        await databases.updateDocument(
+          process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
+          process.env.NEXT_PUBLIC_APPWRITE_SCORES_COLLECTION_ID!,
+          userInfo.$id,
+          {
+            average_score: averageScore,
+            last_challenge_day: today,
+            number_of_challenges: userInfo.number_of_challenges + 1,
+            last_challenge_time: timer,
+          }
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setTypingSpeed(newTypingSpeed);
+      setShowSuccessDialog(true);
+    }
   };
 
   const regex = new RegExp("^" + userInput, "");
@@ -53,7 +116,7 @@ export default function Display({
         <h1 className="mb-2 text-xl font-semibold lg:text-4xl">
           Daily challenge
         </h1>
-        <p>{new Date().toLocaleDateString()}</p>
+        <p>{today}</p>
 
         <div
           dangerouslySetInnerHTML={{ __html: highlightedSentence }}
@@ -70,7 +133,7 @@ export default function Display({
         value={userInput}
         onChange={handleChange}
         onPaste={(e) => e.preventDefault()}
-        disabled={isComplete}
+        disabled={isComplete || authUserHasCompletedChallenge}
       ></textarea>
 
       <p>{timer} seconds</p>
@@ -79,7 +142,12 @@ export default function Display({
         <SuccessDialog
           isOpen={showSuccessDialog}
           handleClose={() => setShowSuccessDialog(false)}
-          timer={timer}
+          timer={
+            authUserHasCompletedChallenge
+              ? userInfo?.last_challenge_time
+              : timer
+          }
+          typingSpeed={typingSpeed}
         />
       </div>
     </>
