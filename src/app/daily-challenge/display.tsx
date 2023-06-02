@@ -53,7 +53,6 @@ export default function Display({
   };
 
   const completeChallenge = async () => {
-    console.log({ user, userInfo });
     const newTypingSpeed = parseFloat(
       (sentenceChallenge.length / 5 / (timer / 60)).toFixed(2)
     );
@@ -84,8 +83,6 @@ export default function Display({
           (userInfo.average_score * userInfo.number_of_challenges +
             newTypingSpeed) /
           (userInfo.number_of_challenges + 1);
-
-        console.log({ averageScore });
 
         await databases.updateDocument(
           process.env.NEXT_PUBLIC_APPWRITE_DATABASE_ID!,
