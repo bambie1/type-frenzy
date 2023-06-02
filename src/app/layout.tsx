@@ -1,5 +1,5 @@
-import Link from "next/link";
 import "./globals.css";
+import Link from "next/link";
 import { Outfit } from "next/font/google";
 import Image from "next/image";
 import { ClerkProvider, currentUser, UserButton } from "@clerk/nextjs";
@@ -26,18 +26,21 @@ export default async function RootLayout({
           <div className="mx-auto flex min-h-screen w-full max-w-5xl flex-col px-4 lg:px-6">
             <header className="py-4">
               <nav className="flex items-center justify-between">
-                <Link href="/" className="flex items-center gap-2">
-                  <Image src="/keycap.svg" alt="" width={40} height={40} />
-                  <span className="text-lg font-semibold lg:text-2xl">
+                <Link
+                  href="/"
+                  className="group flex shrink-0 items-center gap-2"
+                >
+                  <div className="aspect-square h-10 rounded-md bg-primary shadow-keycap transition duration-200 group-hover:shadow-keycap-hover"></div>
+                  <span className="text-lg font-semibold transition duration-150 group-hover:text-gray-600 lg:text-2xl">
                     type-frenzy
                   </span>
                 </Link>
 
                 <div className="flex items-center gap-4">
-                  <Link href="/daily-challenge" className="">
+                  <Link href="/daily-challenge" className="hidden md:block">
                     Daily challenge
                   </Link>
-                  <Link href="/leaderboard" className="">
+                  <Link href="/leaderboard" className="hidden md:block">
                     Leaderboard
                   </Link>
                   {user ? (
@@ -54,7 +57,7 @@ export default async function RootLayout({
               </nav>
             </header>
             <main className="my-20 flex-1">{children}</main>
-            <footer className="flex items-center justify-between gap-2 py-4">
+            <footer className="flex flex-wrap items-center justify-between gap-2 py-4">
               <p>
                 By{" "}
                 <Link

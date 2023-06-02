@@ -3,7 +3,7 @@
 
 TypeFrenzy is a typing game designed to challenge your typing speed and accuracy every day with daily typing tests. This project is submitted for the Appwrite/Hashnode Hackathon.
 
-Check it out at [typefrenzy.vercel.app](https://typefrenzy.vercel.app)
+Check it out at [type-frenzy.app](https://type-frenzy.app)
 
 ## Run Locally
 
@@ -35,4 +35,6 @@ Install dependencies, and start the server
 
 **Hosting:** [Vercel](https://vercel.com)
 
-**Database/Authentication:** [Appwrite](https://appwrite.io)
+**Database:** [Appwrite](https://appwrite.io)
+
+**Authentication:** [Clerk](https://clerk.com)
