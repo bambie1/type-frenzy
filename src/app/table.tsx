@@ -1,4 +1,4 @@
-import { Leaderboard } from "../app/leaderboard-preview";
+import { Leaderboard } from "./leaderboard-preview";
 
 const Table = ({
   leaderboard,

@@ -2,7 +2,7 @@ import { currentUser } from "@clerk/nextjs";
 import { Query } from "appwrite";
 
 import { databases } from "@/utils/appwrite";
-import Table from "../../components/Table";
+import Table from "../table";
 
 async function getData() {
   const { documents: leaderboard } = await databases.listDocuments(
