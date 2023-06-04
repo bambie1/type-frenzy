@@ -111,13 +111,8 @@ export default function Display({
   });
 
   return (
-    <>
-      <div className="text-center">
-        <h1 className="mb-2 text-xl font-semibold lg:text-4xl">
-          Daily challenge
-        </h1>
-        <p>{today}</p>
-
+    <div className="flex flex-col gap-10">
+      <div>
         <div
           dangerouslySetInnerHTML={{ __html: highlightedSentence }}
           className="mt-6 font-mono text-gray-500"
@@ -135,9 +130,15 @@ export default function Display({
         onPaste={(e) => e.preventDefault()}
         disabled={isComplete || authUserHasCompletedChallenge}
         autoCorrect="off"
+        autoFocus
       ></textarea>
 
-      <p>{timer} seconds</p>
+      <div className="mt-auto">
+        <div className="inline-flex items-center justify-center gap-2 self-center rounded-lg bg-primary/20 px-6 py-2 text-gray-600">
+          <span className="text-3xl font-medium">{timer}</span> seconds
+        </div>
+        <p className="mt-2 text-sm text-gray-500">TIMER</p>
+      </div>
 
       <div>
         <SuccessDialog
@@ -151,6 +152,6 @@ export default function Display({
           typingSpeed={typingSpeed}
         />
       </div>
-    </>
+    </div>
   );
 }

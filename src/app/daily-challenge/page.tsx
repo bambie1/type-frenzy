@@ -36,11 +36,6 @@ export default async function DailyChallenge() {
   if (!challenges?.length) return <NoChallengeFound />;
 
   return (
-    <div className="relative mx-auto flex max-w-3xl flex-col gap-10">
-      <Display
-        sentenceChallenge={challenges[0].Challenge}
-        userInfo={userInfo}
-      />
-    </div>
+    <Display sentenceChallenge={challenges[0].Challenge} userInfo={userInfo} />
   );
 }

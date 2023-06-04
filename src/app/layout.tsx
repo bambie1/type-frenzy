@@ -64,7 +64,9 @@ export default async function RootLayout({
                   </div>
                 </nav>
               </header>
-              <main className="my-20 flex-1">{children}</main>
+              <main className="my-20 flex w-full flex-1 flex-col">
+                {children}
+              </main>
               <footer className="flex flex-wrap items-center justify-between gap-2 py-4">
                 <div className="flex items-center gap-4">
                   <Link
