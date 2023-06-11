@@ -71,7 +71,7 @@ export default function Display({
           ID.unique(),
           {
             user_email: user.emailAddresses[0].emailAddress,
-            user_name: `${user.firstName} ${user.lastName?.[0]}`,
+            user_name: `${user.firstName} ${user.lastName?.[0] || ""}`,
             average_score: newTypingSpeed,
             last_challenge_day: today,
             number_of_challenges: 1,
