@@ -2,7 +2,13 @@ import "./globals.css";
 import Link from "next/link";
 import { Outfit } from "next/font/google";
 import Image from "next/image";
-import { ClerkProvider, currentUser, UserButton } from "@clerk/nextjs";
+import {
+  ClerkProvider,
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+} from "@clerk/nextjs";
 import { Analytics } from "@vercel/analytics/react";
 
 const outfit = Outfit({ subsets: ["latin"] });
@@ -13,13 +19,11 @@ export const metadata = {
     "Challenge your typing speed and accuracy every day with our addictive daily typing tests - Appwrite Hackathon",
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await currentUser();
-
   return (
     <>
       <ClerkProvider>
@@ -51,16 +55,13 @@ export default async function RootLayout({
                     >
                       Leaderboard
                     </Link>
-                    {user ? (
-                      <UserButton />
-                    ) : (
-                      <Link
-                        href="/sign-in"
-                        className="underline transition duration-150 hover:text-black hover:no-underline"
-                      >
-                        Sign In
-                      </Link>
-                    )}
+
+                    <SignedIn>
+                      <UserButton afterSignOutUrl="/" />
+                    </SignedIn>
+                    <SignedOut>
+                      <SignInButton />
+                    </SignedOut>
                   </div>
                 </nav>
               </header>
